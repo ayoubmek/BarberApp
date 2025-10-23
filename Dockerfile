@@ -38,11 +38,13 @@ RUN mkdir -p var vendor \
 # Install PHP dependencies with unlimited memory and skip scripts
 RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --no-scripts
 
-# Run Symfony auto-scripts as www-data user
-RUN sudo -u www-data composer run-script auto-scripts
+# Copy entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Use entrypoint to run auto-scripts at runtime
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["apache2-foreground"]
 
 # Expose port 80
 EXPOSE 80
-
-# Run Apache
-CMD ["apache2-foreground"]
