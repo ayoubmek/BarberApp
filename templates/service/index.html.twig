@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Service List{% endblock %}
+
+{% block body %}
+<div class="d-flex flex-column flex-root">
+    <div class="page d-flex flex-row flex-column-fluid">
+        <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+            <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
+                <div class="content flex-row-fluid" id="kt_content">
+                    <div class="row gy-5 g-xl-8">
+                        <div class="col-xl-12">
+                            <div class="card card-xl-stretch mb-5 mb-xl-8">
+                                <div class="card-header border-0 pt-5">
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label fw-bold fs-3 mb-1">Service List</span>
+                                        <span class="text-muted mt-1 fw-semibold fs-7">All available services</span>
+                                    </h3>
+                                    <div class="text-end">
+                                        <a href="{{ path('service_new') }}"class="btn btn-sm btn-light btn-active-primary">Add New Service</a>
+                                    </div>
+                                </div>
+
+                                <div class="card-body py-3">
+                                    <div class="table-responsive">
+                                        <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                                            <thead>
+                                                <tr class="fw-bold text-muted">
+                                                    <th class="min-w-50px"></th>
+                                                    <th class="min-w-150px">Name</th>
+                                                    <th class="min-w-100px">Image</th>
+                                                    <th class="min-w-100px">Price</th>
+                                                    <th class="min-w-100px">Duration</th>
+                                                    <th class="min-w-150px">Category</th>
+                                                    <th class="text-end min-w-150px">Actions</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                {% for service in services %}
+                                                    <tr>
+                                                        <td>{{ service.id }}</td>
+                                                        <td>{{ service.name }}</td>
+                                                        <td>
+                                                            {% if service.image %}
+                                                                <img src="{{ asset('assets/media/ch/' ~ service.image) }}" alt="{{ service.name }}" width="80" height="80" class="rounded shadow-sm">
+                                                            {% else %}
+                                                                <span class="text-muted">No image</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>{{ service.price }} DT</td>
+                                                        <td>{{ service.duration }} min</td>
+                                                        <td>{{ service.category ? service.category.name : 'Uncategorized' }}</td>
+                                                        <td class="text-end">
+                                                            <div class="d-flex justify-content-end flex-shrink-0">
+                                                                <a href="{{ path('service_edit', {'id': service.id}) }}" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                                                    <i class="ki-duotone ki-pencil fs-2">
+																			<span class="path1"></span>
+																			<span class="path2"></span>
+																		</i>
+                                                                </a>
+                                                            <form method="post" action="{{ path('service_delete', {'id': service.id}) }}" onsubmit="return confirm('Are you sure?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ service.id) }}">
+    <button class="btn btn-icon btn-bg-light btn-active-color-danger btn-sm">
+        <i class="ki-duotone ki-trash fs-2">
+            <span class="path1"></span>
+            <span class="path2"></span>
+            <span class="path3"></span>
+            <span class="path4"></span>
+            <span class="path5"></span>
+        </i>
+    </button>
+</form>
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% else %}
+                                                    <tr>
+                                                        <td colspan="7" class="text-center text-muted">No services found.</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+</div>
+
+{% endblock %}

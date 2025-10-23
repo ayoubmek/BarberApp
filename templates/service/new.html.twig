@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add New Service{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="card card-xl-stretch mb-5 mb-xl-8">
+        <div class="card-header border-0 pt-5">
+            <h3 class="card-title align-items-start flex-column">
+                <span class="card-label fw-bold fs-3 mb-1">Add New Service</span>
+                <span class="text-muted mt-1 fw-semibold fs-7">Fill in the details below</span>
+            </h3>
+        </div>
+
+        <div class="card-body py-3">
+            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                {{ form_start(form, {'attr': {'class': 'form fv-plugins-bootstrap5 fv-plugins-framework'}}) }}
+                
+                <!-- Name -->
+                <div class="d-flex flex-column mb-8 fv-row">
+                    {{ form_label(form.name, 'Name', {'label_attr': {'class': 'fs-6 fw-semibold mb-2'}}) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control form-control-solid', 'placeholder': 'Enter service name'}}) }}
+                    {{ form_errors(form.name) }}
+                </div>
+
+                <!-- Image -->
+                <div class="d-flex flex-column mb-8 fv-row">
+                    {{ form_label(form.image, 'Image', {'label_attr': {'class': 'fs-6 fw-semibold mb-2'}}) }}
+                    {{ form_widget(form.image, {'attr': {'class': 'form-control form-control-solid'}}) }}
+                    {{ form_errors(form.image) }}
+                </div>
+
+                <!-- Price & Duration -->
+                <div class="row g-9 mb-8">
+                    <div class="col-md-6 fv-row">
+                        {{ form_label(form.price, 'Price', {'label_attr': {'class': 'fs-6 fw-semibold mb-2'}}) }}
+                        {{ form_widget(form.price, {'attr': {'class': 'form-control form-control-solid', 'placeholder': 'Enter price'}}) }}
+                        {{ form_errors(form.price) }}
+                    </div>
+                    <div class="col-md-6 fv-row">
+                        {{ form_label(form.duration, 'Duration', {'label_attr': {'class': 'fs-6 fw-semibold mb-2'}}) }}
+                        {{ form_widget(form.duration, {'attr': {'class': 'form-control form-control-solid', 'placeholder': 'Duration in minutes'}}) }}
+                        {{ form_errors(form.duration) }}
+                    </div>
+                </div>
+
+                <!-- Category -->
+                <div class="d-flex flex-column mb-8 fv-row">
+                    {{ form_label(form.category, 'Category', {'label_attr': {'class': 'fs-6 fw-semibold mb-2'}}) }}
+                    {{ form_widget(form.category, {'attr': {'class': 'form-select form-select-solid'}}) }}
+                    {{ form_errors(form.category) }}
+                </div>
+
+                <!-- Actions -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="indicator-label">💾 Save</span>
+                    </button>
+                    <a href="{{ path('service_index') }}" class="btn btn-light me-3">↩️ Back to list</a>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

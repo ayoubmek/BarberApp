@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendars{% endblock %}
+
+{% block body %}
+    <h1>All calendars</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th><th>Name</th><th>User</th>
+                <th>Start</th><th>End</th><th>All day</th>
+                <th>Location</th><th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for c in calendars %}
+            <tr>
+                <td>{{ c.id }}</td>
+                <td>{{ c.name }}</td>
+                <td>{{ c.user ? c.user.username|default(c.user.email) : '-' }}</td>
+                <td>{{ c.startDate|date('Y-m-d H:i') }}</td>
+                <td>{{ c.endDate ? c.endDate|date('Y-m-d H:i') : '-' }}</td>
+                <td>{{ c.allDay ? 'yes' : 'no' }}</td>
+                <td>{{ c.location|default('-') }}</td>
+                <td>{{ c.description|slice(0, 50) }}{{ c.description|length > 50 ? '…' }}</td>
+            </tr>
+        {% else %}
+            <tr><td colspan="8">No records found.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

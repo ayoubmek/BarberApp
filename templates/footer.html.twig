@@ -1,0 +1,54 @@
+{# templates/blocks/dashboard_menu.html.twig #}
+{% block dashboard_menu %}
+    <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-850px">
+        <div class="menu-state-bg menu-extended overflow-hidden overflow-lg-visible" data-kt-menu-dismiss="true">
+            <div class="row">
+                {# left column with icons #}
+                <div class="col-lg-8 mb-3 mb-lg-0 py-3 px-3 py-lg-6 px-lg-6">
+                    <div class="row">
+                        {% for item in left_items|default([]) %}
+                            <div class="col-lg-6 mb-3">
+                                <div class="menu-item p-0 m-0">
+                                    <a href="{{ item.href }}" class="menu-link">
+                                        <span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+                                            <i class="{{ item.icon }} text-{{ item.icon_color }} fs-1">
+                                                {% for p in 1..item.icon_paths|default(0) %}<span class="path{{ p }}"></span>{% endfor %}
+                                            </i>
+                                        </span>
+                                        <span class="d-flex flex-column">
+                                            <span class="fs-6 fw-bold text-gray-800">{{ item.title }}</span>
+                                            <span class="fs-7 fw-semibold text-muted">{{ item.subtitle }}</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="separator separator-dashed mx-5 my-5"></div>
+
+                    <div class="d-flex flex-stack flex-wrap flex-lg-nowrap gap-2 mx-5">
+                        <div class="d-flex flex-column me-5">
+                            <div class="fs-6 fw-bold text-gray-800">Landing Page Template</div>
+                            <div class="fs-7 fw-semibold text-muted">One page landing template with pricing & others</div>
+                        </div>
+                        <a href="{{ landing_url|default('') }}" class="btn btn-sm btn-primary fw-bold">Explore</a>
+                    </div>
+                </div>
+
+                {# right column “More Dashboards” #}
+                <div class="menu-more bg-light col-lg-4 py-3 px-3 py-lg-6 px-lg-6 rounded-end">
+                    <h4 class="fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4">More Dashboards</h4>
+
+                    {% for link in right_links|default([]) %}
+                        <div class="menu-item p-0 m-0">
+                            <a href="{{ link.href }}" class="menu-link py-2">
+                                <span class="menu-title">{{ link.title }}</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

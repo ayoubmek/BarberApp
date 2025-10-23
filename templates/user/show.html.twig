@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block title %}User Details{% endblock %}
+{% block body %}
+<h1>User Details</h1>
+
+<ul>
+    <li><strong>ID:</strong> {{ user.id }}</li>
+    <li><strong>Name:</strong> {{ user.name }}</li>
+    <li><strong>Email:</strong> {{ user.email }}</li>
+    <li><strong>Phone:</strong> {{ user.phone }}</li>
+    <li><strong>Role:</strong> {{ user.role }}</li>
+    <li>
+        <strong>Image:</strong><br>
+        {% if user.image %}
+            <img src="{{ asset('uploads/' ~ user.image) }}" width="120" height="120" class="rounded">
+        {% else %}
+            <small>No image uploaded</small>
+        {% endif %}
+    </li>
+</ul>
+
+<a href="{{ path('user_edit', {'id': user.id}) }}" class="btn btn-warning">Edit</a>
+<a href="{{ path('user_index') }}" class="btn btn-secondary">Back</a>
+{% endblock %}

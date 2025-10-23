@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Service{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="card card-xl-stretch mb-5 mb-xl-8">
+        <div class="card-header border-0 pt-5">
+            <h3 class="card-title align-items-start flex-column">
+                <span class="card-label fw-bold fs-3 mb-1">Edit Service</span>
+                <span class="text-muted mt-1 fw-semibold fs-7">Update the service details below</span>
+            </h3>
+        </div>
+
+        <div class="card-body py-3">
+            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                {{ form_start(form, {'attr': {'class': 'form fv-plugins-bootstrap5 fv-plugins-framework'}}) }}
+                
+                <!-- Name -->
+                <div class="d-flex flex-column mb-8 fv-row">
+                    {{ form_label(form.name, 'Name', {'label_attr': {'class': 'fs-6 fw-semibold mb-2'}}) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control form-control-solid', 'placeholder': 'Enter service name'}}) }}
+                    {{ form_errors(form.name) }}
+                </div>
+
+                <!-- Current Image -->
+                <div class="d-flex flex-column mb-8 fv-row">
+                    <label class="fs-6 fw-semibold mb-2">Current Image</label>
+                    {% if service.image %}
+                        <img src="{{ asset('assets/media/ch/' ~ service.image) }}" alt="{{ service.name }}" width="120" class="rounded shadow-sm mb-3">
+                    {% else %}
+                        <span class="text-muted">No image uploaded</span>
+                    {% endif %}
+                </div>
+
+                <!-- Image Upload -->
+                <div class="d-flex flex-column mb-8 fv-row">
+                    {{ form_label(form.image, 'Change Image', {'label_attr': {'class': 'fs-6 fw-semibold mb-2'}}) }}
+                    {{ form_widget(form.image, {'attr': {'class': 'form-control form-control-solid'}}) }}
+                    {{ form_errors(form.image) }}
+                </div>
+
+                <!-- Price & Duration -->
+                <div class="row g-9 mb-8">
+                    <div class="col-md-6 fv-row">
+                        {{ form_label(form.price, 'Price', {'label_attr': {'class': 'fs-6 fw-semibold mb-2'}}) }}
+                        {{ form_widget(form.price, {'attr': {'class': 'form-control form-control-solid', 'placeholder': 'Enter price'}}) }}
+                        {{ form_errors(form.price) }}
+                    </div>
+                    <div class="col-md-6 fv-row">
+                        {{ form_label(form.duration, 'Duration', {'label_attr': {'class': 'fs-6 fw-semibold mb-2'}}) }}
+                        {{ form_widget(form.duration, {'attr': {'class': 'form-control form-control-solid', 'placeholder': 'Duration in minutes'}}) }}
+                        {{ form_errors(form.duration) }}
+                    </div>
+                </div>
+
+                <!-- Category -->
+                <div class="d-flex flex-column mb-8 fv-row">
+                    {{ form_label(form.category, 'Category', {'label_attr': {'class': 'fs-6 fw-semibold mb-2'}}) }}
+                    {{ form_widget(form.category, {'attr': {'class': 'form-select form-select-solid'}}) }}
+                    {{ form_errors(form.category) }}
+                </div>
+
+                <!-- Actions -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary me-3">
+                        <span class="indicator-label">💾 Update</span>
+                    </button>
+                    <a href="{{ path('service_index') }}" class="btn btn-light">↩️ Back to list</a>
+                </div> 
+                {{ form_end(form) }} 
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

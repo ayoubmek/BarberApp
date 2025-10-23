@@ -1,0 +1,234 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+	<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled">	
+		<script>
+            var defaultThemeMode = "light"; 
+            var themeMode; 
+            if (document.documentElement) { 
+                if (document.documentElement.hasAttribute("data-bs-theme-mode")) { 
+                    themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); 
+                } else { 
+                    if (localStorage.getItem("data-bs-theme") !== null) { 
+                        themeMode = localStorage.getItem("data-bs-theme"); 
+                    } else { 
+                        themeMode = defaultThemeMode; 
+                    } 
+                } 
+                if (themeMode === "system") { 
+                    themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; 
+                } 
+                document.documentElement.setAttribute("data-bs-theme", themeMode); 
+            }
+        </script>
+		<div class="d-flex flex-column flex-root">
+			<div class="page d-flex flex-row flex-column-fluid">
+				<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+					<div class="toolbar py-5 pb-lg-15" id="kt_toolbar">
+						<div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
+							<div class="page-title d-flex flex-column me-3">
+								<h1 class="d-flex text-white fw-bold my-1 fs-3">Profile</h1>
+							</div>
+							<div class="d-flex align-items-center py-3 py-md-1">
+								<div class="me-4">
+									<a href="#" class="btn btn-custom btn-active-white btn-flex btn-color-white btn-active-color-white" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+									<i class="ki-duotone ki-filter fs-5 me-1">
+										<span class="path1"></span>
+										<span class="path2"></span>
+									</i>Filter</a>
+									<div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_64b779e96c8a2">
+										<div class="px-7 py-5">
+											<div class="fs-5 text-dark fw-bold">Filter Options</div>
+										</div>
+										<div class="separator border-gray-200"></div>
+										<div class="px-7 py-5">
+											<div class="mb-10">
+												<label class="form-label fw-semibold">Status:</label>
+												<div>
+													<select class="form-select form-select-solid" multiple="multiple" data-kt-select2="true" data-close-on-select="false" data-placeholder="Select option" data-dropdown-parent="#kt_menu_64b779e96c8a2" data-allow-clear="true">
+														<option></option>
+														<option value="1">Approved</option>
+														<option value="2">Pending</option>
+														<option value="2">In Process</option>
+														<option value="2">Rejected</option>
+													</select>
+												</div>
+											</div>
+											<div class="mb-10">
+												<label class="form-label fw-semibold">Member Type:</label>
+												<div class="d-flex">
+													<label class="form-check form-check-sm form-check-custom form-check-solid me-5">
+														<input class="form-check-input" type="checkbox" value="1" />
+														<span class="form-check-label">Author</span>
+													</label>
+													<label class="form-check form-check-sm form-check-custom form-check-solid">
+														<input class="form-check-input" type="checkbox" value="2" checked="checked" />
+														<span class="form-check-label">Customer</span>
+													</label>
+												</div>
+											</div>
+											<div class="mb-10">
+												<label class="form-label fw-semibold">Notifications:</label>
+												<div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+													<input class="form-check-input" type="checkbox" value="" name="notifications" checked="checked" />
+													<label class="form-check-label">Enabled</label>
+												</div>
+											</div>
+											<div class="d-flex justify-content-end">
+												<button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Reset</button>
+												<button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">Apply</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<a href="#" data-bs-theme="light" class="btn bg-body btn-active-color-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app" id="kt_toolbar_primary_button">Create</a>
+							</div>
+						</div>
+					</div>
+					<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
+						<div class="content flex-row-fluid" id="kt_content">
+							<div class="card mb-6">
+								<div class="card-body pt-9 pb-0">
+									<div class="d-flex flex-wrap flex-sm-nowrap">
+										<div class="me-7 mb-4">
+											<div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
+												<img src="{{ asset('assets/media/avatars/' ~ barber.image) }}" alt="image" />
+												<div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
+											</div>
+										</div>
+										<div class="flex-grow-1">
+											<div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
+												<div class="d-flex flex-column">
+													<div class="d-flex align-items-center mb-2">
+														<a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{ barber.name }}</a>
+														<a href="#">
+															<i class="ki-duotone ki-verify fs-1 text-primary">
+																<span class="path1"></span>
+																<span class="path2"></span>
+															</i>
+														</a>
+													</div>
+													<div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
+														<a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
+														<i class="ki-duotone ki-profile-circle fs-4 me-1">
+															<span class="path1"></span>
+															<span class="path2"></span>
+															<span class="path3"></span>
+														</i>{{ barber.role }}</a>
+														<a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
+														<i class="ki-duotone ki-geolocation fs-4 me-1">
+															<span class="path1"></span>
+															<span class="path2"></span>
+														</i>Tunisia ,Manouba</a>
+														<a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
+														<i class="ki-duotone ki-sms fs-4 me-1">
+															<span class="path1"></span>
+															<span class="path2"></span>
+														</i>{{ barber.email }}</a>
+													</div>
+												</div>
+												<div class="d-flex my-4">
+{# place this anywhere you want the button #}
+<a href="#"
+   class="btn btn-sm btn-primary me-3"
+   id="btn-zero-balance"
+   data-barber-id="{{ app.request.query.get('id') }}">
+   Confirm Payment
+</a>
+
+{# ---- JavaScript ---- #}
+<script>
+document.getElementById('btn-zero-balance')?.addEventListener('click', async (e) => {
+    e.preventDefault();                       // stop <a> jump
+    const barberId = e.target.dataset.barberId;
+
+    if (!barberId || isNaN(barberId)) {
+        alert('Barber ID missing');
+        return;
+    }
+
+    const res = await fetch('/service/zero-balance', {
+        method : 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body   : JSON.stringify({barberId})
+    });
+
+    if (res.ok) {
+        location.reload();   // refresh to show 0 balance
+    } else {
+        const msg = await res.json().catch(() => ({error:'Network error'}));
+        alert(msg.error || 'Error');
+    }
+});
+</script>											</div>
+											<div class="d-flex flex-wrap flex-stack">
+												<div class="d-flex flex-column flex-grow-1 pe-8">
+													<div class="d-flex flex-wrap">
+														<div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+															<div class="d-flex align-items-center">
+																<i class="ki-duotone ki-arrow-up fs-3 text-success me-2">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+																<div class="fs-2 fw-bold" data-kt-countup="true"
+																	data-kt-countup-value="{{ totalAmount|number_format(2) / 2  }}"
+																	data-kt-countup-prefix="DT ">0</div>
+															</div>
+															<div class="fw-semibold fs-6 text-gray-400">Balance</div>
+														</div>
+														<div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+															<div class="d-flex align-items-center">
+																<i class="ki-duotone ki-arrow-up fs-3 text-success me-2">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+																<div class="fs-2 fw-bold" data-kt-countup="true"
+																	data-kt-countup-value="{{ totalAmount }}"
+																	data-kt-countup-prefix="DT ">0</div>
+															</div>
+															<div class="fw-semibold fs-6 text-gray-400">Earnings Total</div>
+														</div>	
+														<div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+															<div class="d-flex align-items-center">
+																<i class="ki-duotone ki-arrow-down fs-3 text-danger me-2">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+																<div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="{{ haircutCount}}">0</div>
+															</div>
+															<div class="fw-semibold fs-6 text-gray-400">Haircuts</div>
+														</div>
+														<div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+															<div class="d-flex align-items-center">
+																<i class="ki-duotone ki-arrow-up fs-3 text-success me-2">
+																	<span class="path1"></span>
+																	<span class="path2"></span>
+																</i>
+																<div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="100" data-kt-countup-prefix="%">0</div>
+															</div>
+															<div class="fw-semibold fs-6 text-gray-400">Success Rate</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+			<i class="ki-duotone ki-arrow-up">
+				<span class="path1"></span>
+				<span class="path2"></span>
+			</i>
+		</div>
+
+	</body>
+
+{% endblock %}

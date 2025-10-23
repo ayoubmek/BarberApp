@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+<div class="d-flex flex-column flex-root">
+    <div class="page d-flex flex-row flex-column-fluid">
+        <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+            <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
+                <div class="content flex-row-fluid" id="kt_content">
+                    <div class="row gy-5 g-xl-8">
+                        <div class="col-xl-12">
+                            <div class="card card-xl-stretch mb-5 mb-xl-8">
+                                <div class="card-header border-0 pt-5">
+                                    <h3 class="card-title align-items-start flex-column">
+                                        <span class="card-label fw-bold fs-3 mb-1">Calendar Events</span>
+                                        <span class="text-muted mt-1 fw-semibold fs-7">All scheduled events</span>
+                                    </h3> 
+                                </div>
+
+                                <div class="card-body py-3">
+                                    <div class="table-responsive">
+                                        <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                                            <thead>
+                                                <tr class="fw-bold text-muted"> 
+                                                    <th class="min-w-200px">Title</th>
+                                                    <th class="min-w-150px">Start Date</th>
+                                                    <th class="min-w-150px">End Date</th>
+                                                    <th class="min-w-200px">Location</th>
+                                                    <th class="min-w-250px">Description</th> 
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                {% for event in events %}
+                                                    <tr> 
+                                                        <td>{{ event.title }}</td>
+                                                       <td>{{ event.start ? event.start|date('Y-m-d H:i') : '—' }}</td>
+														<td>{{ event.end ? event.end|date('Y-m-d H:i') : '—' }}</td>
+														<td>{{ event.location ?: 'N/A' }}</td>
+                                                        <td>{{ event.description ?: 'No description' }}</td>
+                                                        <td class="text-end">
+                                                            <div class="d-flex justify-content-end flex-shrink-0">
+                                                                <a  class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                                                                    <i class="ki-duotone ki-eye fs-2"></i>
+                                                                </a> 
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% else %}
+                                                    <tr>
+                                                        <td colspan="7" class="text-center text-muted">No events found.</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div> 
+                </div> 
+            </div> 
+        </div> 
+    </div> 
+</div>
+{% endblock %}
