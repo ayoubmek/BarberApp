@@ -1,23 +1,39 @@
-# Use official PHP CLI image
-FROM php:8.2-cli
+# Use official PHP image with Apache
+FROM php:8.2-apache
 
-WORKDIR /app
+# Set working directory
+WORKDIR /var/www/html
 
-# Install dependencies
+# Install system dependencies and MySQL client/dev headers
 RUN apt-get update && apt-get install -y \
-    unzip git libzip-dev zip && docker-php-ext-install pdo pdo_pgsql
+    unzip \
+    git \
+    libzip-dev \
+    zip \
+    default-mysql-client \
+    libicu-dev \
+    libonig-dev \
+    libxml2-dev \
+    && docker-php-ext-install pdo pdo_mysql intl mbstring zip opcache \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
 
-# Copy Symfony project files
-COPY . .
+# Copy Composer from official image
+COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 
-# Install Symfony dependencies
+# Copy project files
+COPY . /var/www/html
+
+# Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Expose port 10000
-EXPOSE 10000
+# Set permissions
+RUN chown -R www-data:www-data /var/www/html/var /var/www/html/vendor
 
-# Start Symfony server
-CMD ["php", "-S", "0.0.0.0:10000", "-t", "public"]
+# Expose port 80
+EXPOSE 80
+
+# Run Apache
+CMD ["apache2-foreground"]
